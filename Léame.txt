@@ -1,0 +1,29 @@
+﻿ NOTA.- Así queda el método "ConfigureServices" en el archivo "Startup.cs"
+
+ public void ConfigureServices(IServiceCollection services)
+        {
+            // Para poder accederlo desde otra app como "Angular" o "Postman"
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("CorsPolicy",
+            //        builder => builder.AllowAnyOrigin()
+            //        .AllowAnyMethod()
+            //        .AllowAnyHeader()
+            //        .AllowCredentials());
+            //});
+            services.AddCors();
+
+
+            services.AddControllers();
+
+
+
+            // NOTA.- Detalle importante, evita ciclo circulares en referencias entre tablas y permite grabar objetos maestro detalle.
+            // Además, desde la consola del Administrador de Paquetes, instalar
+            // "Microsoft.AspNetCore.Mvc.NewtonsoftJson -Version 3.0.0"; 
+            // o sea, ejecutar comando: "Install-Package Microsoft.AspNetCore.Mvc.NewtonsoftJson -Version 3.0.0")
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+        }
