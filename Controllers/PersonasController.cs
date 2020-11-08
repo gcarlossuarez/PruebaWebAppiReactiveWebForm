@@ -43,15 +43,14 @@ namespace PruebaWebAppiReactiveWebForm.Controllers
 
             Persona persona;
 
-            //if (incluirDirecciones)
-            //{
-            //    persona = await _context.Persona.Include(x => x.Direccion).SingleOrDefaultAsync(m => m.Id == id);
-            //}
-            //else
-            //{
-            //    persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == id);
-            //}
-            persona = await _context.Persona.Include(x => x.Direccion).SingleOrDefaultAsync(m => m.Id == id);
+            if (incluirDirecciones)
+            {
+                persona = await _context.Persona.Include(x => x.Direcciones).SingleOrDefaultAsync(m => m.Id == id);
+            }
+            else
+            {
+                persona = await _context.Persona.SingleOrDefaultAsync(m => m.Id == id);
+            }
 
             if (persona == null)
             {
@@ -92,7 +91,7 @@ namespace PruebaWebAppiReactiveWebForm.Controllers
 
             try
             {
-                await CrearOEditarDirecciones(persona.Direccion.ToList());
+                await CrearOEditarDirecciones(persona.Direcciones.ToList());
 
                 await _context.SaveChangesAsync();
             }

@@ -34,7 +34,7 @@ namespace PruebaWebAppiReactiveWebForm.Models
                 entity.HasIndex(e => e.PersonaId);
 
                 entity.HasOne(d => d.Persona)
-                    .WithMany(p => p.Direccion)
+                    .WithMany(p => p.Direcciones)
                     .HasForeignKey(d => d.PersonaId);
             });
 
